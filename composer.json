@@ -20,6 +20,7 @@
         "barryvdh/laravel-debugbar": "^3.16",
         "barryvdh/laravel-ide-helper": "^3.6",
         "driftingly/rector-laravel": "^2.0",
+        "laradumps/laradumps": "^4.0",
         "larastan/larastan": "^3.0",
         "laravel/pail": "^1.2.2",
         "laravel/pint": "^1.24",
@@ -79,11 +80,13 @@
         "rector-commit": "@php vendor/bin/rector process --no-progress-bar --no-ansi --memory-limit=2G",
         "analyze": "@php vendor/bin/phpstan analyze --verbose --ansi --memory-limit=2G",
         "analyze-commit": "@php vendor/bin/phpstan analyze --no-progress --no-ansi --memory-limit=2G",
-        "check": [
-            "@composer lint",
-            "@composer analyze",
-            "@composer rector",
-            "@composer test"
+        "ds:check": "@php vendor/bin/laradumps check --dir=app,routes,config,database --text=dump,dd",
+        "verify": [
+            "@ds:check",
+            "@lint",
+            "@analyze",
+            "@rector",
+            "@test"
         ]
     },
     "extra": {
