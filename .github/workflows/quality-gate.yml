@@ -28,12 +28,12 @@ jobs:
         with:
           filters: |
             php:
-              - '**/*.php',
-              - 'composer.json',
-              - 'composer.lock',
+              - '**/*.php'
+              - 'composer.json'
+              - 'composer.lock'
             tests:
-              - 'tests/**',
-              - 'phpunit.xml',
+              - 'tests/**'
+              - 'phpunit.xml'
               - 'pest.*'
 
   pint:
