@@ -89,12 +89,12 @@
             "@qa:pint:fix",
             "@qa:rector:apply"
         ],
-        "verify": [
+        "qa:verify": [
             "@qa:pint:test",
             "@qa:rector:dry",
             "@qa:stan",
             "@qa:debug:check",
-            "@qa:test"
+            "@qa:test:ci"
         ]
     },
     "extra": {
