@@ -45,7 +45,7 @@ class GenerateEnvBackupFileCommand extends Command
 
         while ($line = fgetcsv($file, null, '=')) {
             if (count($line) > 1) {
-                $writeLine = $line[0] . '=' . (string)env((string) $line[0]) . PHP_EOL; // @phpstan-ignore-line
+                $writeLine = $line[0] . '=' . env((string) $line[0]) . PHP_EOL; // @phpstan-ignore-line
                 fwrite($backupFile, $writeLine);
             }
         }

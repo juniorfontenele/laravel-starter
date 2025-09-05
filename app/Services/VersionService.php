@@ -28,10 +28,8 @@ class VersionService
         }
         exec('git describe --tags HEAD 2> /dev/null', $outputTag);
         $date = date('Ymd');
-        $tag = $outputTag[0] ?? 'v1.0.0';
-        $appVersion = "$date-$hash";
 
-        return $appVersion;
+        return "$date-$hash";
     }
 
     public static function writeVersion(): void
