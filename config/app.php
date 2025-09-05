@@ -127,4 +127,8 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'github' => [
+        'sha' => env('GITHUB_SHA'),
+        'ref' => env('GITHUB_REF_NAME'),
+    ],
 ];
