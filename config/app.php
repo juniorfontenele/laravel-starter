@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 return [
 
@@ -68,6 +68,8 @@ return [
     */
 
     'timezone' => 'UTC',
+
+    'default_user_timezone' => 'America/Fortaleza',
 
     /*
     |--------------------------------------------------------------------------

@@ -13,7 +13,8 @@
     "fakerphp/faker": "^1.24",
     "laravel/framework": "^12.0",
     "laravel/tinker": "^2.10.1",
-    "opcodesio/log-viewer": "^3.19"
+    "opcodesio/log-viewer": "^3.19",
+    "sentry/sentry-laravel": "^4.15"
   },
   "require-dev": {
     "barryvdh/laravel-debugbar": "^3.16",
