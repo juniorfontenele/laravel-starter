@@ -32,7 +32,7 @@ class AddTracingInformation
         $response->headers->set('X-App-Version', config('app.version'));
 
         if ($request->user()) {
-            $response->headers->set('X-ID', $request->user()->getKey());
+            $response->headers->set('X-ID', (string) $request->user()->getKey());
         }
 
         Log::shareContext([
