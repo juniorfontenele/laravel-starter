@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-
-composer run rector-commit || exit 1
-composer run analyze-commit || exit 1
-
-exit 0

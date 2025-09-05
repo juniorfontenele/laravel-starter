@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+. "$(dirname "$0")/_/husky.sh"
+
+echo "▶ pre-commit: pint + checks rápidos"
+
+# Formata apenas arquivos staged (lint-staged cuida disso)
+npx lint-staged || exit 1
+
+# Busca "debug statements" nos arquivos staged (rápido)
+STAGED_PHP=$(git diff --name-only --cached --diff-filter=ACMR | grep -E '\.php$' || true)
+if [ -n "$STAGED_PHP" ]; then
+  if git grep -n -E '\b(dd|dump|var_dump|print_r|ds)\s*\(' -- $STAGED_PHP >/dev/null; then
+    echo "✖ Encontrado uso de dd/dump/var_dump/print_r/ds em arquivos staged."
+    echo "  Dica: rode 'composer qa:debug:check' para ver detalhes."
+    exit 1
+  fi
+fi
+
+echo "✔ pre-commit ok"

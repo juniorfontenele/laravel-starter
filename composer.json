@@ -71,22 +71,26 @@
         ],
         "test": [
             "@php artisan config:clear --ansi",
-            "@php artisan test --colors=always --env=testing"
+            "@php vendor/bin/pest --colors=always --env=testing"
         ],
-        "lint": [
-            "vendor/bin/pint"
+        "qa:pint:fix": "@php vendor/bin/pint",
+        "qa:pint:test": "@php vendor/bin/pint --test",
+        "qa:pint:bail": "@php vendor/bin/pint --bail",
+        "qa:rector:dry": "@php vendor/bin/rector process --dry-run --no-progress-bar --memory-limit=2G",
+        "qa:rector:apply": "@php vendor/bin/rector process --no-progress-bar --memory-limit=2G",
+        "qa:stan": "@php vendor/bin/phpstan analyze --ansi --memory-limit=2G",
+        "qa:test": "@test",
+        "qa:test:ci": [
+            "@php artisan config:clear --ansi",
+            "@php vendor/bin/pest --ci"
         ],
-        "rector": "@php vendor/bin/rector process --ansi --memory-limit=2G",
-        "rector-commit": "@php vendor/bin/rector process --no-progress-bar --no-ansi --memory-limit=2G",
-        "analyze": "@php vendor/bin/phpstan analyze --verbose --ansi --memory-limit=2G",
-        "analyze-commit": "@php vendor/bin/phpstan analyze --no-progress --no-ansi --memory-limit=2G",
-        "ds:check": "@php vendor/bin/laradumps check --dir=app,routes,config,database --text=dump,dd",
+        "qa:debug:check": "@php vendor/bin/laradumps check --dir=app,routes,config,database --text=dump,dd,var_dump,print_r",
         "verify": [
-            "@ds:check",
-            "@lint",
-            "@analyze",
-            "@rector",
-            "@test"
+            "@qa:pint:test",
+            "@qa:rector:dry",
+            "@qa:stan",
+            "@qa:debug:check",
+            "@qa:test"
         ]
     },
     "extra": {
