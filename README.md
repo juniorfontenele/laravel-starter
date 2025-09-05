@@ -23,6 +23,12 @@ Status: **Work in Progress** – melhorias contínuas, feedback bem-vindo.
 - Banco SQLite pronto por padrão (criado automaticamente no setup)
 - Localização PT-BR
 - Visualização de logs pela interface (Log Viewer)
+- Observabilidade: Sentry integrado + contexto enriquecido (app/version/host/user) + tracing simples (Correlation ID / Request ID / X-App-Version)
+- Segurança: headers básicos (X-Frame-Options, X-Content-Type-Options, X-XSS-Protection, Referrer-Policy)
+- Versionamento automático com header `X-App-Version` (baseado em hash/tag/data) via `VersionService`
+- Comandos Artisan adicionais (geração de versão, backup de env, evento de inicialização)
+- Ajustes dinâmicos: forçar HTTPS fora de local, regras de senha mais fortes em produção, timezone/locale do usuário
+- Sessões persistidas (tabela `sessions`) com relação ao usuário
 
 ---
 
@@ -31,6 +37,7 @@ Status: **Work in Progress** – melhorias contínuas, feedback bem-vindo.
 Produção:
 - `laravel/framework` – Core Laravel 12
 - `opcodesio/log-viewer` – Interface para visualização de logs
+- `sentry/sentry-laravel` – Monitoramento e rastreamento de erros
 
 Desenvolvimento / Qualidade:
 - `barryvdh/laravel-debugbar` – Debug de requisições
@@ -41,6 +48,10 @@ Desenvolvimento / Qualidade:
 - `lucascudo/laravel-pt-br-localization` – Traduções PT-BR
 - `pestphp/pest` + `pestphp/pest-plugin-laravel` – Testes expressivos
 - `soloterm/solo` – UI/UX de terminal (design system CLI)
+
+Observabilidade / Utilidades Internas:
+- Middlewares: tracing, segurança, contexto para Sentry, locale do usuário, terminating (log de métricas básicas)
+- `VersionService` para geração e injeção de versão (arquivo `VERSION` + config + header)
 
 ---
 
@@ -54,6 +65,15 @@ Desenvolvimento / Qualidade:
 
 ---
 
+## Observabilidade & Versionamento
+
+- Header de resposta: `X-Correlation-ID`, `X-Request-ID`, `X-App-Version`
+- Log context enriquecido (app, container, request, user)
+- Integração Sentry com escopos/tag de versão e contexto de requisição
+- Serviço de versão gera hash curto (git ou variáveis de build) + data + ambiente
+
+---
+
 ## Scripts Úteis
 
 Composer:
@@ -62,6 +82,9 @@ Composer:
 - `composer lint` – Executa Pint
 - `composer analyze` – PHPStan/Larastan
 - `composer rector` – Executa Rector (interativo)
+  
+Comandos Artisan adicionais (núcleo deste starter):
+- `php artisan app:started` – Emite evento de inicialização (extensível)
 
 NPM:
 - `npm run dev` – Vite em modo desenvolvimento
