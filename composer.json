@@ -85,6 +85,10 @@
             "@php vendor/bin/pest --ci"
         ],
         "qa:debug:check": "@php vendor/bin/laradumps check --dir=app,routes,config,database --text=dump,dd,var_dump,print_r",
+        "qa:fix": [
+            "@qa:pint:fix",
+            "@qa:rector:apply"
+        ],
         "verify": [
             "@qa:pint:test",
             "@qa:rector:dry",
