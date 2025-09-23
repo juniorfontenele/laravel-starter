@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    return Inertia::render('app/index');
+    return Inertia::render('app/dashboard');
 })
     ->name('dashboard')
     ->middleware('auth', CheckTenantPermission::class);
