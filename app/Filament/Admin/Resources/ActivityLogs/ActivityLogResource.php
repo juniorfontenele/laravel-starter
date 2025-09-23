@@ -28,12 +28,13 @@ class ActivityLogResource extends Resource
         return ['action', 'description', 'type', 'level'];
     }
 
+    /** @param ActivityLog $record */
     public static function getGlobalSearchResultDetails(Model $record): array
     {
         return [
             'Ação' => $record->action,
-            'Usuário' => $record->user?->name ?? 'Sistema',
-            'Tenant' => $record->tenant?->name ?? 'N/A',
+            'Usuário' => $record->user->name ?? 'Sistema',
+            'Tenant' => $record->tenant->name ?? 'N/A',
         ];
     }
 

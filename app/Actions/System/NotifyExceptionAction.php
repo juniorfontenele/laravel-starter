@@ -30,7 +30,7 @@ class NotifyExceptionAction
                 'is_retryable' => $exception->isRetryable(),
                 'stack_trace' => $exception->getTraceAsString(),
                 'context' => $exception->context(),
-                'previous_exception_class' => get_class($exception->getPrevious()) ?? null,
+                'previous_exception_class' => $exception->getPrevious() ? get_class($exception->getPrevious()) : null,
                 'previous_message' => $exception->getPrevious()?->getMessage(),
                 'previous_file' => $exception->getPrevious()?->getFile(),
                 'previous_line' => $exception->getPrevious()?->getLine(),

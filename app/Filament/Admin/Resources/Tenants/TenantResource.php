@@ -31,6 +31,7 @@ class TenantResource extends Resource
         return ['name', 'hosts.host'];
     }
 
+    /** @param Tenant $record */
     public static function getGlobalSearchResultDetails(Model $record): array
     {
         return [

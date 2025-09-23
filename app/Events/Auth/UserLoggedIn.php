@@ -31,7 +31,7 @@ class UserLoggedIn extends AppEvent
                 'id' => $this->user->id,
                 'name' => $this->user->name,
                 'email' => $this->user->email,
-                'roles' => $this->user->roles?->pluck('name')->toArray(),
+                'roles' => $this->user->roles->pluck('name')->toArray(),
             ],
         ]);
     }

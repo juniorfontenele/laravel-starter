@@ -14,7 +14,7 @@ class HttpException extends AppException
     {
         $message = $message ?: "Falha ao acessar o recurso";
 
-        $this->resource ??= request()?->getRequestUri();
+        $this->resource ??= request()->getRequestUri();
 
         parent::__construct($message, $statusCode, $previous);
     }

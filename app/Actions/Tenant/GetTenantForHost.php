@@ -14,8 +14,19 @@ class GetTenantForHost
     {
         $host = strtolower($host);
 
-        return TenantHost::where('host', $host)->first()?->tenant
-            ?? Tenant::where('is_fallback', true)->first()
-            ?? throw new TenantNotFoundException($host);
+        /** @var Tenant|null $tenant */
+        $tenant = TenantHost::query()->where('host', $host)->first()?->tenant;
+
+        if ($tenant) {
+            return $tenant;
+        }
+
+        $tenantFallback = Tenant::query()->where('is_fallback', true)->first();
+
+        if ($tenantFallback) {
+            return $tenantFallback;
+        }
+
+        throw new TenantNotFoundException($host);
     }
 }

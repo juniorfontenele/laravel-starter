@@ -180,22 +180,12 @@ class ActivityLogService
 
     protected function setDefaultUser(): void
     {
-        if (Auth::check()) {
-            $this->user = Auth::user();
-        }
+        $this->user = Auth::user();
     }
 
     protected function setDefaultTenant(): void
     {
-        $tenant = getCurrentTenant();
-
-        if (! is_null($tenant)) {
-            if ($tenant instanceof Tenant) {
-                $this->tenant = $tenant;
-            } elseif (is_numeric($tenant)) {
-                $this->tenant = (int) $tenant;
-            }
-        }
+        $this->tenant = getCurrentTenant();
     }
 
     protected function resolveUserId(): ?int

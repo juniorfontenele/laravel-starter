@@ -28,12 +28,13 @@ class ExceptionResource extends Resource
         return ['exception_class', 'message', 'error_id', 'correlation_id', 'request_id'];
     }
 
+    /** @param Exception $record */
     public static function getGlobalSearchResultDetails(Model $record): array
     {
         return [
             'Error ID' => $record->error_id,
-            'User' => $record->user?->name ?? 'N/A',
-            'Tenant' => $record->tenant?->name ?? 'N/A',
+            'User' => $record->user->name ?? 'N/A',
+            'Tenant' => $record->tenant->name ?? 'N/A',
         ];
     }
 

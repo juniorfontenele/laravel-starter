@@ -21,7 +21,7 @@ class SetTenantForHost
 
         setPermissionsTeamId($tenant->id);
 
-        request()?->user()?->unsetRelation('roles')?->unsetRelation('permissions');
+        request()->user()?->unsetRelation('roles')?->unsetRelation('permissions');
 
         event(new TenantSelectedByHost($host, $tenant));
     }

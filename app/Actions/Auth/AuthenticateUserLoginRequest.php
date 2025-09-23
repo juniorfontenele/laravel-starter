@@ -122,7 +122,6 @@ class AuthenticateUserLoginRequest
      */
     public function throttleKey(): string
     {
-        /** @phpstan-ignore-next-line */
         return Str::transliterate(Str::lower($this->email . '|' . $this->request->ip()));
     }
 }

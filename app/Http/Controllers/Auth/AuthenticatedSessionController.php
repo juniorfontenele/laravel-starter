@@ -31,7 +31,7 @@ class AuthenticatedSessionController extends Controller
             return redirect()->route('select-tenant');
         }
 
-        $setTenant->execute($user->getTenantsForUser()->first()?->id);
+        $setTenant->execute($user->getTenantsForUser()->first()?->getKey());
 
         return redirect()->route('dashboard');
     }

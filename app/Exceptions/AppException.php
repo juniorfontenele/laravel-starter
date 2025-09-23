@@ -36,7 +36,7 @@ class AppException extends Exception
         $roles = Auth::user()?->roles?->pluck('name')?->toArray();
 
         return [
-            'resource' => request()?->getRequestUri(),
+            'resource' => request()->getRequestUri(),
             'status_code' => $this->statusCode,
             'error_id' => $this->errorId,
             'correlation_id' => session()->get('correlation_id'),
@@ -56,10 +56,10 @@ class AppException extends Exception
             ],
             'previous_exception' => $this->getPrevious() instanceof Throwable ? [
                 'class' => get_class($this->getPrevious()),
-                'message' => $this->getPrevious()?->getMessage(),
-                'file' => $this->getPrevious()?->getFile(),
-                'line' => $this->getPrevious()?->getLine(),
-                'code' => $this->getPrevious()?->getCode(),
+                'message' => $this->getPrevious()->getMessage(),
+                'file' => $this->getPrevious()->getFile(),
+                'line' => $this->getPrevious()->getLine(),
+                'code' => $this->getPrevious()->getCode(),
             ] : null,
         ];
     }

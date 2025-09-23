@@ -225,12 +225,14 @@ class AppServiceProvider extends ServiceProvider
                     $scope->setTag('livewire.component', $component->getName());
                     $scope->setTag('livewire.id', $component->getId());
 
-                    if (request()->user()) {
+                    $user = request()->user();
+
+                    if ($user) {
                         $scope->setUser([
-                            'id' => request()->user()->getKey(),
-                            'name' => request()->user()->name,
-                            'email' => request()->user()->email,
-                            'roles' => request()->user()->roles?->pluck('name')->toArray(),
+                            'id' => $user->getKey(),
+                            'name' => $user->name,
+                            'email' => $user->email,
+                            'roles' => $user->roles->pluck('name')->toArray(),
                         ]);
                     }
                 });

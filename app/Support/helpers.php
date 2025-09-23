@@ -24,7 +24,7 @@ if (! function_exists('getUserTimezone')) {
      */
     function getUserTimezone(): string
     {
-        return Auth::user()?->timezone ?? config('app.default_user_timezone', 'UTC');
+        return Auth::user()->timezone ?? config('app.default_user_timezone', 'UTC');
     }
 }
 
@@ -34,7 +34,7 @@ if (! function_exists('getUserLocale')) {
      */
     function getUserLocale(): string
     {
-        return Auth::user()?->locale ?? config('app.locale', config('app.fallback_locale', 'en'));
+        return Auth::user()->locale ?? config('app.locale', config('app.fallback_locale', 'en'));
     }
 }
 

@@ -21,7 +21,7 @@ class SetTenant
 
         setPermissionsTeamId($tenant->id);
 
-        request()?->user()?->unsetRelation('roles')?->unsetRelation('permissions');
+        request()->user()?->unsetRelation('roles')?->unsetRelation('permissions');
 
         if ($oldTenant && $oldTenant->id !== $tenant->id) {
             event(new TenantChanged(request()->user(), $tenant, $oldTenant));
