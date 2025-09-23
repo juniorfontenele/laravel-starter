@@ -6,6 +6,7 @@ namespace App\Http\Middleware\System;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 use function Sentry\configureScope;
 
@@ -25,10 +26,10 @@ class AddContextToSentry
             return $next($request);
         }
 
-        if (auth()->check()) {
+        if (Auth::check()) {
             configureScope(function (Scope $scope) {
                 /** @var \App\Models\User $user */
-                $user = auth()->user();
+                $user = Auth::user();
 
                 $scope->setUser([
                     'id' => $user->getKey(),
@@ -40,14 +41,14 @@ class AddContextToSentry
 
         configureScope(function (Scope $scope) use ($request) {
             $scope->setContext('Tracing', [
-                'Correlation ID' => session()->get('correlation_id'),
-                'Request ID' => session()->get('request_id'),
+                'Correlation ID' => session()->get('correlation_id', ''),
+                'Request ID' => session()->get('request_id', ''),
             ]);
 
             $scope->setTag('page.path', '/' . $request->path());
             $scope->setTag('page.url', $request->fullUrl());
-            $scope->setTag('request_id', session()->get('request_id'));
-            $scope->setTag('correlation_id', session()->get('correlation_id'));
+            $scope->setTag('request_id', session()->get('request_id', ''));
+            $scope->setTag('correlation_id', session()->get('correlation_id', ''));
         });
 
         return $next($request);
