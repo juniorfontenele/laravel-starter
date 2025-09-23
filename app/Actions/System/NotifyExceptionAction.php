@@ -7,6 +7,7 @@ namespace App\Actions\System;
 use App\Exceptions\AppException;
 use App\Models\Exception;
 use Illuminate\Support\Facades\Auth;
+use Throwable;
 
 class NotifyExceptionAction
 {
@@ -30,14 +31,14 @@ class NotifyExceptionAction
                 'is_retryable' => $exception->isRetryable(),
                 'stack_trace' => $exception->getTraceAsString(),
                 'context' => $exception->context(),
-                'previous_exception_class' => $exception->getPrevious() ? get_class($exception->getPrevious()) : null,
+                'previous_exception_class' => $exception->getPrevious() instanceof Throwable ? get_class($exception->getPrevious()) : null,
                 'previous_message' => $exception->getPrevious()?->getMessage(),
                 'previous_file' => $exception->getPrevious()?->getFile(),
                 'previous_line' => $exception->getPrevious()?->getLine(),
                 'previous_code' => $exception->getPrevious()?->getCode(),
                 'previous_stack_trace' => $exception->getPrevious()?->getTraceAsString(),
             ]);
-        } catch (\Throwable) {
+        } catch (Throwable $e) {
             // Do nothing
         }
     }
