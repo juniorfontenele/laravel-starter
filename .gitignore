@@ -32,3 +32,7 @@ _ide_helper_models.php
 .phpstorm.meta.php
 laradumps.yaml
 VERSION
+laradumps.yaml
+/resources/js/actions
+/resources/js/routes
+/resources/js/wayfinder
