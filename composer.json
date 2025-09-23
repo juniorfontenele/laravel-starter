@@ -3,18 +3,19 @@
     "name": "juniorfontenele/laravel-starter",
     "type": "project",
     "description": "Laravel 12 Starter Kit",
-    "keywords": [
-        "laravel",
-        "framework"
-    ],
+    "keywords": ["laravel", "framework"],
     "license": "MIT",
     "require": {
         "php": "^8.4",
         "fakerphp/faker": "^1.24",
+        "filament/filament": "^4.0",
+        "inertiajs/inertia-laravel": "^2.0",
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
+        "laravel/wayfinder": "^0.1.12",
         "opcodesio/log-viewer": "^3.19",
-        "sentry/sentry-laravel": "^4.15"
+        "sentry/sentry-laravel": "^4.15",
+        "spatie/laravel-permission": "^6.21"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.16",
@@ -22,6 +23,7 @@
         "driftingly/rector-laravel": "^2.0",
         "laradumps/laradumps": "^4.0",
         "larastan/larastan": "^3.0",
+        "laravel/boost": "^1.2",
         "laravel/pail": "^1.2.2",
         "laravel/pint": "^1.24",
         "laravel/sail": "^1.41",
@@ -38,7 +40,10 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+        "files": [
+            "app/Support/helpers.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
@@ -48,7 +53,8 @@
     "scripts": {
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover --ansi"
+            "@php artisan package:discover --ansi",
+            "@php artisan filament:upgrade"
         ],
         "post-update-cmd": [
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force",
