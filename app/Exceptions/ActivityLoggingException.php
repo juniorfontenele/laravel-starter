@@ -10,7 +10,7 @@ class ActivityLoggingException extends AppException
 {
     public function __construct(?Throwable $previous = null)
     {
-        $message = $previous ? $previous->getMessage() : 'Falha ao registrar atividade do ActivityLog';
+        $message = $previous instanceof Throwable ? $previous->getMessage() : 'Falha ao registrar atividade do ActivityLog';
         parent::__construct($message, 0, $previous);
 
         $this->statusCode = 200;

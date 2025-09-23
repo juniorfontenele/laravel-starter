@@ -187,7 +187,9 @@ class ActivityLogService
 
     protected function setDefaultTenant(): void
     {
-        if ($tenant = getCurrentTenant()) {
+        $tenant = getCurrentTenant();
+
+        if (! is_null($tenant)) {
             if ($tenant instanceof Tenant) {
                 $this->tenant = $tenant;
             } elseif (is_numeric($tenant)) {

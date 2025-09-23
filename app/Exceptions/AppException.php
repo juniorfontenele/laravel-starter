@@ -54,7 +54,7 @@ class AppException extends Exception
                 'line' => $this->getLine(),
                 'code' => $this->getCode(),
             ],
-            'previous_exception' => $this->getPrevious() ? [
+            'previous_exception' => $this->getPrevious() instanceof Throwable ? [
                 'class' => get_class($this->getPrevious()),
                 'message' => $this->getPrevious()?->getMessage(),
                 'file' => $this->getPrevious()?->getFile(),
