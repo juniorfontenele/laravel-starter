@@ -1,11 +1,332 @@
 @import 'tailwindcss';
+@import '@fontsource/roboto/400.css';
+@import '@fontsource/roboto/500.css';
+@import '@fontsource/roboto/700.css';
 
+/* Fontes e arquivos que o Tailwind deve escanear */
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
+@source '../../app/**/*.php';
 @source '../**/*.blade.php';
 @source '../**/*.js';
+@source '../**/*.tsx';
 
+/* =========================
+   THEME (LIGHT / DEFAULT)
+   ========================= */
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    /* fontes */
+    --font-sans:
+        'Roboto', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji';
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+
+    /* raio e sombras padrão */
+    --radius: 16px;
+    --shadow-sm: 0 1px 2px 0 rgb(16 24 40 / 0.05);
+    --shadow: 0 10px 30px rgb(16 24 40 / 0.1);
+
+    /* PALETA BRAND (LARANJA) */
+    --color-brand-50: #fff3e8;
+    --color-brand-100: #ffe3cf;
+    --color-brand-200: #ffc59e;
+    --color-brand-300: #ffa06a;
+    --color-brand-400: #ff7f33;
+    --color-brand-500: #ff6a00; /* principal */
+    --color-brand-600: #e95e00; /* hover/pressed */
+    --color-brand-700: #c24d00;
+
+    /* NEUTROS */
+    --color-neutral-50: #f8fafc;
+    --color-neutral-100: #f1f5f9;
+    --color-neutral-200: #e2e8f0;
+    --color-neutral-300: #cbd5e1;
+    --color-neutral-400: #94a3b8;
+    --color-neutral-500: #64748b;
+    --color-neutral-700: #334155;
+    --color-neutral-900: #0f172a;
+
+    /* SUPERFÍCIES (mock da tela de login) */
+    --color-page: #ffb873; /* fundo externo (pêssego) */
+    --color-surface: #ffffff; /* cartões/caixas */
+    --color-elevated: #ffffff;
+
+    /* TOKENS SEMÂNTICOS (use estes) */
+    --color-background: #ffffff; /* corpo */
+    --color-foreground: #0f172a; /* texto principal */
+    --color-text: var(--color-neutral-900);
+    --color-muted: var(--color-neutral-500);
+    --color-border: var(--color-neutral-200);
+    --color-ring: var(--color-brand-500);
+
+    /* VARIANTES SEMÂNTICAS */
+    --color-primary: var(--color-brand-500);
+    --color-primary-foreground: #ffffff;
+
+    --color-danger: #dc2626;
+    --color-danger-foreground: #ffffff;
+
+    --color-success: #16a34a;
+    --color-success-foreground: #ffffff;
+
+    --color-warning: #d97706;
+    --color-warning-foreground: #ffffff;
+
+    --color-info: #2563eb;
+    --color-info-foreground: #ffffff;
+}
+
+/* =========================
+   THEME DARK
+   ========================= */
+:root[data-theme='dark'] {
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.4);
+    --shadow: 0 12px 40px rgb(0 0 0 / 0.45);
+
+    /* superfícies */
+    --color-page: #0b0f1a;
+    --color-surface: #0f172a;
+    --color-elevated: #111827;
+
+    /* neutros ajustados */
+    --color-neutral-50: #0b1220;
+    --color-neutral-100: #0f172a;
+    --color-neutral-200: #1f2937;
+    --color-neutral-300: #334155;
+    --color-neutral-400: #475569;
+    --color-neutral-500: #94a3b8;
+    --color-neutral-700: #c7d2fe;
+    --color-neutral-900: #e5e7eb;
+
+    --color-background: #0b0f1a;
+    --color-foreground: #e5e7eb;
+    --color-text: var(--color-neutral-900);
+    --color-muted: var(--color-neutral-500);
+    --color-border: #233046;
+    --color-ring: var(--color-brand-400);
+
+    /* brand levemente mais clara no dark para contraste */
+    --color-brand-500: #ff7f33;
+    --color-brand-600: #ff6a00;
+
+    /* variantes semânticas ajustadas no dark */
+    --color-primary: #ff7f33;
+    --color-primary-foreground: #000000;
+
+    --color-danger: #f87171;
+    --color-danger-foreground: #000000;
+
+    --color-success: #4ade80;
+    --color-success-foreground: #000000;
+
+    --color-warning: #fbbf24;
+    --color-warning-foreground: #000000;
+
+    --color-info: #60a5fa;
+    --color-info-foreground: #000000;
+}
+
+/* =========================
+   UTILITÁRIO (radius)
+   ========================= */
+@utility rounded-radius {
+    border-radius: var(--radius);
+}
+
+/* =========================
+   HELPERS PRONTOS
+   ========================= */
+
+/* superfícies comuns */
+.card {
+    @apply rounded-radius bg-[color:var(--color-surface)] p-4 shadow;
+}
+.input {
+    @apply rounded-radius w-full border border-[color:var(--color-border)] bg-white/80 px-4 py-2 text-[color:var(--color-text)] placeholder:text-[color:var(--color-neutral-400)] focus:border-[color:var(--color-ring)] focus:ring-4 focus:ring-[color:var(--color-ring)]/25 focus:outline-none dark:bg-white/5;
+}
+.separator {
+    @apply h-px bg-[color:var(--color-border)];
+}
+
+/* fundo externo (ex.: tela de login) */
+.page {
+    background: var(--color-page);
+}
+
+/* =========================
+   BOTÕES (base + variantes)
+   ========================= */
+@utility btn {
+    @apply rounded-radius inline-flex items-center justify-center gap-2 px-5 py-2.5 font-medium shadow-sm transition hover:cursor-pointer focus:ring-4 focus:outline-none;
+}
+
+/* primário */
+.btn-primary {
+    @apply btn bg-[color:var(--color-primary)] text-white;
+}
+.btn-primary:hover {
+    background: var(--color-brand-600);
+}
+.btn-primary:focus {
+    @apply ring-[color:var(--color-ring)]/35;
+}
+
+/* danger / success / warning / info */
+.btn-danger {
+    @apply btn bg-[color:var(--color-danger)] text-[color:var(--color-danger-foreground)];
+}
+.btn-success {
+    @apply btn bg-[color:var(--color-success)] text-[color:var(--color-success-foreground)];
+}
+.btn-warning {
+    @apply btn bg-[color:var(--color-warning)] text-[color:var(--color-warning-foreground)];
+}
+.btn-info {
+    @apply btn bg-[color:var(--color-info)] text-[color:var(--color-info-foreground)];
+}
+
+/* estados hover (ligeiro escurecimento via opacity) */
+.btn-danger:hover,
+.btn-success:hover,
+.btn-warning:hover,
+.btn-info:hover {
+    @apply opacity-90;
+}
+
+/* =========================
+   UTILITÁRIOS DE COR SEMÂNTICOS
+   ========================= */
+/* background */
+.bg-primary {
+    background: var(--color-primary);
+}
+.bg-danger {
+    background: var(--color-danger);
+}
+.bg-success {
+    background: var(--color-success);
+}
+.bg-warning {
+    background: var(--color-warning);
+}
+.bg-info {
+    background: var(--color-info);
+}
+
+/* texto */
+.text-primary {
+    color: var(--color-primary);
+}
+.text-danger {
+    color: var(--color-danger);
+}
+.text-success {
+    color: var(--color-success);
+}
+.text-warning {
+    color: var(--color-warning);
+}
+.text-info {
+    color: var(--color-info);
+}
+
+/* borda */
+.border-primary {
+    border-color: var(--color-primary);
+}
+.border-danger {
+    border-color: var(--color-danger);
+}
+.border-success {
+    border-color: var(--color-success);
+}
+.border-warning {
+    border-color: var(--color-warning);
+}
+.border-info {
+    border-color: var(--color-info);
+}
+
+/* cores base do layout */
+.bg-page {
+    background: var(--color-page);
+}
+.bg-surface {
+    background: var(--color-surface);
+}
+.bg-elevated {
+    background: var(--color-elevated);
+}
+.text-text {
+    color: var(--color-text);
+}
+.text-muted {
+    color: var(--color-muted);
+}
+.border-border {
+    border-color: var(--color-border);
+}
+
+/* =========================
+   BOTÕES SOCIAIS
+   ========================= */
+.social-btn {
+    @apply btn border-border border bg-white transition-colors hover:bg-neutral-50;
+    @apply flex items-center justify-center;
+    padding: 12px;
+}
+
+.social-btn-google {
+    @apply hover:shadow-md;
+}
+
+.social-btn-facebook {
+    @apply hover:shadow-md;
+}
+
+/* dark mode para botões sociais */
+:root[data-theme='dark'] .social-btn {
+    @apply border-neutral-700 bg-neutral-800 hover:bg-neutral-700;
+}
+
+/* =========================
+   THEME TOGGLE SWITCH
+   ========================= */
+.theme-toggle {
+    @apply relative inline-flex h-7 w-14 cursor-pointer items-center rounded-full bg-neutral-200 transition-colors duration-300 ease-in-out;
+    @apply focus:ring-4 focus:ring-[color:var(--color-ring)]/25 focus:outline-none;
+}
+
+.theme-toggle.active {
+    @apply bg-[color:var(--color-primary)];
+}
+
+.theme-toggle-handle {
+    @apply absolute top-1 left-1 h-5 w-5 transform rounded-full bg-white shadow-sm transition-transform duration-300 ease-in-out;
+    @apply flex items-center justify-center text-xs;
+}
+
+.theme-toggle.active .theme-toggle-handle {
+    @apply translate-x-7;
+}
+
+/* dark mode para toggle */
+:root[data-theme='dark'] .theme-toggle {
+    @apply bg-neutral-700;
+}
+
+:root[data-theme='dark'] .theme-toggle.active {
+    @apply bg-[color:var(--color-primary)];
+}
+
+:root[data-theme='dark'] .theme-toggle-handle {
+    @apply bg-neutral-100;
+}
+
+/* =========================
+   BODY (opcional)
+   ========================= */
+body {
+    background: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
 }

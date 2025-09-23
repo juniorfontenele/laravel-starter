@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,6 +16,9 @@ return new class extends Migration
         Schema::create('{{ table }}', function (Blueprint $table) {
             $table->defaultCharset();
             $table->id();
+            $table->boolean('is_active')->default(true)->index();
+            $table->foreignId('created_by')->nullable()->constrained('users');
+            $table->foreignId('updated_by')->nullable()->constrained('users');
             $table->timestamps();
         });
     }

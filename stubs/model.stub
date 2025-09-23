@@ -1,11 +1,17 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace {{ namespace }};
 
+use App\Traits\HasActiveState;
+use App\Traits\HasActor;
 {{ factoryImport }}
 use Illuminate\Database\Eloquent\Model;
 
 class {{ class }} extends Model
 {
     {{ factory }}
+    use HasActiveState;
+    use HasActor;
 }

@@ -1,18 +1,25 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace {{ namespace }};
 
-use Illuminate\Broadcasting\Channel;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Queue\SerializesModels;
+use App\Enums\LogLevel;
+use App\Enums\LogType;
+use App\Events\AppEvent;
+use App\Models\Tenant;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Model;
 
-class {{ class }}
+class {{ class }} extends AppEvent
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    public string $name = '{{ class }}';
+
+    public LogType $type = LogType::USER;
+
+    public LogLevel $level = LogLevel::DEBUG;
+
+    public ?string $description = null;
 
     /**
      * Create a new event instance.
@@ -22,15 +29,8 @@ class {{ class }}
         //
     }
 
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return array<int, \Illuminate\Broadcasting\Channel>
-     */
-    public function broadcastOn(): array
+    public function context(): array
     {
-        return [
-            new PrivateChannel('channel-name'),
-        ];
+        return array_merge(parent::context(), []);
     }
 }

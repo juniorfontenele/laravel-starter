@@ -4,19 +4,25 @@ declare(strict_types = 1);
 
 namespace App\Providers;
 
+use App\Events\AppEvent;
+use App\Http\Middleware\System\AddContextToSentry;
+use App\Http\Middleware\System\AddTracingInformation;
 use App\Services\VersionService;
 use Carbon\CarbonImmutable;
 use Illuminate\Config\Repository;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
+use Livewire\Livewire;
 use Opcodes\LogViewer\Facades\LogViewer;
 
 use function Sentry\configureScope;
@@ -50,6 +56,8 @@ class AppServiceProvider extends ServiceProvider
         $this->setupApplicationVersion();
         $this->setupDefaultLogContext();
         $this->setupSentryContext();
+        $this->setupLivewireConfiguration();
+        $this->setupEventListeners();
     }
 
     protected function setupDefaultLogContext(): void
@@ -70,6 +78,7 @@ class AppServiceProvider extends ServiceProvider
                 'host' => gethostname() ?: null,
                 'ip' => gethostname() ? gethostbyname(gethostname()) : null,
             ],
+            'tenant' => session('tenant')?->only(['id', 'name', 'title', 'is_active', 'is_fallback']),
         ]);
 
         if (! app()->runningInConsole()) {
@@ -93,6 +102,7 @@ class AppServiceProvider extends ServiceProvider
                         'id' => Auth::id(),
                         'name' => Auth::user()?->name,
                         'email' => Auth::user()?->email,
+                        'roles' => Auth::user()?->roles->pluck('name')->toArray(),
                     ],
                 ]);
             }
@@ -101,9 +111,9 @@ class AppServiceProvider extends ServiceProvider
 
     protected function setupLogviewer(): void
     {
-        // LogViewer::auth(function () {
-        //     return app()->environment('local');
-        // });
+        LogViewer::auth(function (Request $request) {
+            return $this->app->environment('local') || $request->user()?->isGlobalAdmin();
+        });
     }
 
     protected function setupDatabaseSettings(): void
@@ -158,6 +168,7 @@ class AppServiceProvider extends ServiceProvider
             }
 
             return Password::min(12)
+                ->max(128)
                 ->mixedCase()
                 ->numbers()
                 ->symbols()
@@ -192,8 +203,63 @@ class AppServiceProvider extends ServiceProvider
                 'IP' => gethostname() ? gethostbyname(gethostname()) : null,
             ]);
 
+            $scope->setContext('Tenant', session('tenant')?->only(['id', 'name', 'title', 'is_active', 'is_fallback']) ?? []);
+
             $scope->setTag('app.version', config('app.version'));
             $scope->setTag('type', app()->runningInConsole() ? 'console' : 'http');
+        });
+    }
+
+    protected function setupLivewireConfiguration(): void
+    {
+        // Ensure Sentry and tracing context is maintained for Livewire requests
+        Livewire::addPersistentMiddleware([
+            AddContextToSentry::class,
+            AddTracingInformation::class,
+        ]);
+
+        // Configure Livewire hooks for additional context
+        if ($this->app->bound('sentry')) {
+            Livewire::listen('hydrate', function ($component) {
+                configureScope(function (Scope $scope) use ($component) {
+                    $scope->setTag('livewire.component', $component->getName());
+                    $scope->setTag('livewire.id', $component->getId());
+
+                    $user = request()->user();
+
+                    if ($user) {
+                        $scope->setUser([
+                            'id' => $user->getKey(),
+                            'name' => $user->name,
+                            'email' => $user->email,
+                            'roles' => $user->roles->pluck('name')->toArray(),
+                        ]);
+                    }
+                });
+            });
+        }
+    }
+
+    protected function setupEventListeners(): void
+    {
+        Event::listen('App\\Events\\*', function ($eventName, $event) {
+            if ($event[0] instanceof AppEvent && $event[0]->shouldLog()) {
+                activity($event[0]->name)
+                    ->on($event[0]->subject())
+                    ->by($event[0]->causer())
+                    ->tenant($event[0]->tenant())
+                    ->type($event[0]->type)
+                    ->level($event[0]->level)
+                    ->withProperties($event[0]->context())
+                    ->withDescription($event[0]->description)
+                    ->log();
+
+                Log::log(
+                    level: strtolower($event[0]->level->name),
+                    message: $event[0]->name,
+                    context: $event[0]->context()
+                );
+            }
         });
     }
 

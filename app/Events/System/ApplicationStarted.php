@@ -4,9 +4,9 @@ declare(strict_types = 1);
 
 namespace App\Events\System;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Events\AppEvent;
 
-class ApplicationStarted
+class ApplicationStarted extends AppEvent
 {
     /**
      * Create a new event instance.
@@ -16,18 +16,13 @@ class ApplicationStarted
         //
     }
 
-    public function getSubject(): ?Model
-    {
-        return null;
-    }
-
     /** @return array<string, mixed> */
-    public function getContext(): array
+    public function context(): array
     {
-        return [
+        return array_merge(parent::context(), [
             'host' => $this->host,
             'ip' => $this->ip,
             'role' => $this->role,
-        ];
+        ]);
     }
 }

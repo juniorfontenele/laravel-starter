@@ -10,7 +10,9 @@ class ExternalServiceException extends AppException
 {
     protected string $service;
 
-    protected string $userMessage = 'Falha ao se comunicar com serviço externo.';
+    public int $statusCode = 503;
+
+    public string $userMessage = 'Falha ao se comunicar com serviço externo.';
 
     public function __construct(string $service, string $message = '', int $code = 0, ?Throwable $previous = null)
     {
