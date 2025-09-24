@@ -1,5 +1,4 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui';
-import { cn } from '@/lib/utils';
 import { Link } from '@inertiajs/react';
 import { ReactNode } from 'react';
 
@@ -48,7 +47,7 @@ export function StatisticsCard({ statistics = [], viewAllHref = '/analytics' }: 
             <CardHeader>
                 <div className="flex items-center justify-between">
                     <CardTitle>Estatísticas</CardTitle>
-                    <Link href={viewAllHref} className="text-primary text-sm hover:underline">
+                    <Link href={viewAllHref} className="text-[color:var(--color-primary)] text-sm hover:underline">
                         Ver relatório
                     </Link>
                 </div>
@@ -57,12 +56,12 @@ export function StatisticsCard({ statistics = [], viewAllHref = '/analytics' }: 
                 <div className="space-y-3">
                     {displayStatistics.map((statistic) => (
                         <div key={statistic.id} className="flex items-start space-x-3">
-                            <div className={cn('flex h-6 w-6 items-center justify-center rounded-full', `bg-${statistic.iconColorClass.replace('text-', '')}/10`)}>
+                            <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[color:var(--color-primary)]/10">
                                 <div className={statistic.iconColorClass}>{statistic.icon}</div>
                             </div>
                             <div className="flex-1">
-                                <p className="text-text text-sm font-medium">{statistic.title}</p>
-                                <p className="text-muted text-xs">{statistic.description}</p>
+                                <p className="text-[color:var(--color-text)] text-sm font-medium">{statistic.title}</p>
+                                <p className="text-[color:var(--color-muted)] text-xs">{statistic.description}</p>
                             </div>
                         </div>
                     ))}

@@ -7,7 +7,7 @@ interface Activity {
     description: string;
     badge: {
         text: string;
-        variant: 'default' | 'success' | 'outline';
+        variant: 'default' | 'secondary' | 'destructive' | 'outline';
     };
 }
 
@@ -28,7 +28,7 @@ export function ActivityCard({ activities = [], viewAllHref = '/activities' }: A
             id: '2',
             title: 'Pedido processado',
             description: '#1234 • há 1 dia',
-            badge: { text: 'Sucesso', variant: 'success' },
+            badge: { text: 'Sucesso', variant: 'secondary' },
         },
         {
             id: '3',
@@ -45,7 +45,7 @@ export function ActivityCard({ activities = [], viewAllHref = '/activities' }: A
             <CardHeader>
                 <div className="flex items-center justify-between">
                     <CardTitle>Últimas Atividades</CardTitle>
-                    <Link href={viewAllHref} className="text-primary text-sm hover:underline">
+                    <Link href={viewAllHref} className="text-[color:var(--color-primary)] text-sm hover:underline">
                         Ver todas
                     </Link>
                 </div>
@@ -60,8 +60,8 @@ export function ActivityCard({ activities = [], viewAllHref = '/activities' }: A
                             }`}
                         >
                             <div>
-                                <p className="text-text text-sm font-medium">{activity.title}</p>
-                                <p className="text-muted text-xs">{activity.description}</p>
+                                <p className="text-[color:var(--color-text)] text-sm font-medium">{activity.title}</p>
+                                <p className="text-[color:var(--color-muted)] text-xs">{activity.description}</p>
                             </div>
                             <Badge variant={activity.badge.variant}>{activity.badge.text}</Badge>
                         </div>

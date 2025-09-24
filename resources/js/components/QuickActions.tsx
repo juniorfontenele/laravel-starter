@@ -1,5 +1,4 @@
 import { Button } from '@/components/ui';
-import { cn } from '@/lib/utils';
 import { Link } from '@inertiajs/react';
 import { ReactNode } from 'react';
 
@@ -57,17 +56,17 @@ export function QuickActions({ actions = [], className }: QuickActionsProps) {
 
     return (
         <div className={className}>
-            <h3 className="text-text mb-4 text-lg font-semibold">Ações Rápidas</h3>
+            <h3 className="text-[color:var(--color-text)] mb-4 text-lg font-semibold">Ações Rápidas</h3>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
                 {displayActions.map((action) => (
                     <Button key={action.id} variant="outline" asChild className="h-auto justify-start p-4">
                         <Link href={action.href} className="flex items-center space-x-3">
-                            <div className={cn('flex h-10 w-10 items-center justify-center rounded-lg', `bg-${action.iconColorClass.replace('text-', '')}/10`)}>
+                            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[color:var(--color-primary)]/10">
                                 <div className={action.iconColorClass}>{action.icon}</div>
                             </div>
                             <div>
-                                <p className="text-text font-medium">{action.title}</p>
-                                <p className="text-muted text-sm">{action.description}</p>
+                                <p className="text-[color:var(--color-text)] font-medium">{action.title}</p>
+                                <p className="text-[color:var(--color-muted)] text-sm">{action.description}</p>
                             </div>
                         </Link>
                     </Button>

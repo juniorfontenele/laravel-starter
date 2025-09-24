@@ -16,10 +16,10 @@ export function StatsCard({ title, value, icon, iconColorClass = 'text-primary',
             <CardContent className="p-6">
                 <div className="flex items-center">
                     <div className="flex-1">
-                        <p className="text-muted text-sm font-medium">{title}</p>
-                        <p className="text-text text-2xl font-bold">{value}</p>
+                        <p className="text-[color:var(--color-muted)] text-sm font-medium">{title}</p>
+                        <p className="text-[color:var(--color-text)] text-2xl font-bold">{value}</p>
                     </div>
-                    <div className={cn('flex h-12 w-12 items-center justify-center rounded-lg', `bg-${iconColorClass.replace('text-', '')}/10`)}>
+                    <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-[color:var(--color-primary)]/10">
                         <div className={cn('h-6 w-6', iconColorClass)}>{icon}</div>
                     </div>
                 </div>

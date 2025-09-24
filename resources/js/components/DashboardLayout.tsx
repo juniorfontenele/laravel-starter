@@ -21,8 +21,8 @@ export function DashboardLayout({ tenant, user }: DashboardLayoutProps) {
             <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
                 {/* Boas-vindas */}
                 <div className="mb-8">
-                    <h2 className="text-text text-2xl font-bold">Bem-vindo, {user.name}!</h2>
-                    <p className="text-muted mt-2">Visão geral da sua aplicação Laravel.</p>
+                    <h2 className="text-[color:var(--color-text)] text-2xl font-bold">Bem-vindo, {user.name}!</h2>
+                    <p className="text-[color:var(--color-muted)] mt-2">Visão geral da sua aplicação Laravel.</p>
                 </div>
 
                 {/* Cards de resumo */}

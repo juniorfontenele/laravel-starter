@@ -35,7 +35,7 @@ export function DashboardHeader({ tenant, user }: DashboardHeaderProps) {
                     <div className="flex items-center space-x-4">
                         <img src={tenant.logo} alt={tenant.name} className="h-8 w-auto" />
                         <div>
-                            <h1 className="text-text text-lg font-semibold">{tenant.title}</h1>
+                            <h1 className="text-[color:var(--color-text)] text-lg font-semibold">{tenant.title}</h1>
                         </div>
                     </div>
 
@@ -43,20 +43,20 @@ export function DashboardHeader({ tenant, user }: DashboardHeaderProps) {
                     <nav className="hidden items-center space-x-8 md:flex">
                         <Link
                             href="/dashboard"
-                            className="text-text hover:text-primary flex items-center gap-2 font-medium transition-colors"
+                            className="text-[color:var(--color-text)] hover:text-[color:var(--color-primary)] flex items-center gap-2 font-medium transition-colors"
                         >
                             <MdDashboard />
                             Dashboard
                         </Link>
 
-                        <Link href="/users" className="text-muted hover:text-primary flex items-center gap-2 font-medium transition-colors">
+                        <Link href="/users" className="text-[color:var(--color-muted)] hover:text-[color:var(--color-primary)] flex items-center gap-2 font-medium transition-colors">
                             <AiOutlineUser />
                             Usuários
                         </Link>
 
                         <Link
                             href="/analytics"
-                            className="text-muted hover:text-primary flex items-center gap-2 font-medium transition-colors"
+                            className="text-[color:var(--color-muted)] hover:text-[color:var(--color-primary)] flex items-center gap-2 font-medium transition-colors"
                         >
                             <BiBarChartAlt2 />
                             Analytics
@@ -64,7 +64,7 @@ export function DashboardHeader({ tenant, user }: DashboardHeaderProps) {
 
                         <Link
                             href="/settings"
-                            className="text-muted hover:text-primary flex items-center gap-2 font-medium transition-colors"
+                            className="text-[color:var(--color-muted)] hover:text-[color:var(--color-primary)] flex items-center gap-2 font-medium transition-colors"
                         >
                             <MdSettings />
                             Configurações
@@ -81,7 +81,7 @@ export function DashboardHeader({ tenant, user }: DashboardHeaderProps) {
                                 <DropdownMenuTrigger asChild>
                                     <Button
                                         variant="ghost"
-                                        className="text-text hover:text-primary flex h-auto items-center space-x-2 p-2 transition-colors"
+                                        className="text-[color:var(--color-text)] hover:text-[color:var(--color-primary)] flex h-auto items-center space-x-2 p-2 transition-colors"
                                     >
                                         <Avatar className="h-8 w-8">
                                             <AvatarImage src={user.avatar} alt={user.name} />
@@ -107,7 +107,7 @@ export function DashboardHeader({ tenant, user }: DashboardHeaderProps) {
                                         </DropdownMenuItem>
                                     )}
                                     <DropdownMenuSeparator />
-                                    <DropdownMenuItem className="text-danger focus:text-danger cursor-pointer" onClick={handleLogout}>
+                                    <DropdownMenuItem className="text-[color:var(--color-danger)] focus:text-[color:var(--color-danger)] cursor-pointer" onClick={handleLogout}>
                                         <MdLogout className="h-4 w-4" />
                                         Sair
                                     </DropdownMenuItem>
@@ -123,28 +123,28 @@ export function DashboardHeader({ tenant, user }: DashboardHeaderProps) {
                 <div className="space-y-1 px-4 py-3">
                     <Link
                         href="/dashboard"
-                        className="text-text hover:text-primary flex items-center gap-2 px-3 py-2 font-medium transition-colors"
+                        className="text-[color:var(--color-text)] hover:text-[color:var(--color-primary)] flex items-center gap-2 px-3 py-2 font-medium transition-colors"
                     >
                         <MdDashboard />
                         Dashboard
                     </Link>
                     <Link
                         href="/users"
-                        className="text-muted hover:text-primary flex items-center gap-2 px-3 py-2 font-medium transition-colors"
+                        className="text-[color:var(--color-muted)] hover:text-[color:var(--color-primary)] flex items-center gap-2 px-3 py-2 font-medium transition-colors"
                     >
                         <AiOutlineUser />
                         Usuários
                     </Link>
                     <Link
                         href="/analytics"
-                        className="text-muted hover:text-primary flex items-center gap-2 px-3 py-2 font-medium transition-colors"
+                        className="text-[color:var(--color-muted)] hover:text-[color:var(--color-primary)] flex items-center gap-2 px-3 py-2 font-medium transition-colors"
                     >
                         <BiBarChartAlt2 />
                         Analytics
                     </Link>
                     <Link
                         href="/settings"
-                        className="text-muted hover:text-primary flex items-center gap-2 px-3 py-2 font-medium transition-colors"
+                        className="text-[color:var(--color-muted)] hover:text-[color:var(--color-primary)] flex items-center gap-2 px-3 py-2 font-medium transition-colors"
                     >
                         <MdSettings />
                         Configurações
