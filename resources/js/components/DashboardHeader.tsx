@@ -1,6 +1,8 @@
 import { ThemeToggle } from '@/components/ThemeToggle';
 import {
     Avatar,
+    AvatarFallback,
+    AvatarImage,
     Button,
     DropdownMenu,
     DropdownMenuContent,
@@ -81,7 +83,10 @@ export function DashboardHeader({ tenant, user }: DashboardHeaderProps) {
                                         variant="ghost"
                                         className="text-text hover:text-primary flex h-auto items-center space-x-2 p-2 transition-colors"
                                     >
-                                        <Avatar fallback={user.name.charAt(0).toUpperCase()} className="h-8 w-8" />
+                                        <Avatar className="h-8 w-8">
+                                            <AvatarImage src={user.avatar} alt={user.name} />
+                                            <AvatarFallback>{user.name.charAt(0).toUpperCase()}</AvatarFallback>
+                                        </Avatar>
                                         <span className="text-sm font-medium">{user.name}</span>
                                         <MdKeyboardArrowDown className="h-4 w-4" />
                                     </Button>

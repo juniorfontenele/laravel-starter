@@ -32,11 +32,11 @@ Status: **Work in Progress** – melhorias contínuas, feedback bem-vindo.
 - **Estrutura de testes** robusta (Pest + Playwright para E2E)
 
 ### Frontend & UI
-- **Inertia.js v2** + **React 19** + **TypeScript**
-- **Tailwind CSS v4** com theme system
-- **Filament v4** Admin Panel completo
-- **Radix UI** components para interface consistente
-- **Livewire v3** para componentes reativos específicos
+- **Inertia.js 2** + **React 19** + **TypeScript**
+- **Tailwind CSS 4** com theme system
+- **Filament 4** Admin Panel completo
+- **Shadcn UI** components para interface consistente
+- **Livewire 3** para componentes reativos específicos
 
 ### Autenticação & Permissões
 - **Autenticação social** (Google, Facebook) configurada
@@ -68,25 +68,25 @@ Status: **Work in Progress** – melhorias contínuas, feedback bem-vindo.
 ## Pacotes PHP Instalados
 
 ### Produção (Core)
-- `laravel/framework` (v12) – Core Laravel 12
-- `filament/filament` (v4) – Admin Panel framework completo
-- `inertiajs/inertia-laravel` (v2) – Backend Inertia.js
+- `laravel/framework` **12** – Core Laravel
+- `filament/filament` **4** – Admin Panel framework completo
+- `inertiajs/inertia-laravel` **2** – Backend Inertia.js
 - `laravel/wayfinder` – Roteamento avançado
-- `spatie/laravel-permission` (v6) – Sistema de permissões e roles
-- `opcodesio/log-viewer` (v3) – Interface para visualização de logs
-- `sentry/sentry-laravel` (v4) – Monitoramento e rastreamento de erros
+- `spatie/laravel-permission` **6** – Sistema de permissões e roles
+- `opcodesio/log-viewer` **3** – Interface para visualização de logs
+- `sentry/sentry-laravel` **4** – Monitoramento e rastreamento de erros
 
 ### Desenvolvimento / Qualidade
-- `barryvdh/laravel-debugbar` (v3) – Debug de requisições
-- `barryvdh/laravel-ide-helper` (v3) – Helpers para autocompletar IDE
-- `larastan/larastan` (v3.7.2) – Análise estática (PHPStan para Laravel)
-- `rector/rector` (v2) + `driftingly/rector-laravel` – Refactors/upgrades automatizados
-- `laravel/pint` – Padronização de código (PSR / Laravel style)
-- `laravel/boost` (v1.2) – Ferramentas de desenvolvimento Laravel
-- `laradumps/laradumps` (v4.0) – Debug avançado e dump de dados
-- `lucascudo/laravel-pt-br-localization` (v3.0) – Traduções PT-BR
-- `pestphp/pest` (v4.1.0) + `pestphp/pest-plugin-laravel` – Testes expressivos
-- `soloterm/solo` (v0.5.0) – UI/UX de terminal (design system CLI)
+- `barryvdh/laravel-debugbar` **3** – Debug de requisições
+- `barryvdh/laravel-ide-helper` **3** – Helpers para autocompletar IDE
+- `larastan/larastan` **3** – Análise estática (PHPStan para Laravel)
+- `rector/rector` **2** + `driftingly/rector-laravel` – Refactors/upgrades automatizados
+- `laravel/pint` **1** – Padronização de código (PSR / Laravel style)
+- `laravel/boost` **1** – Ferramentas de desenvolvimento Laravel
+- `laradumps/laradumps` **4** – Debug avançado e dump de dados
+- `lucascudo/laravel-pt-br-localization` **3** – Traduções PT-BR
+- `pestphp/pest` **4** + `pestphp/pest-plugin-laravel` – Testes expressivos
+- `soloterm/solo` – UI/UX de terminal (design system CLI)
 
 ### Observabilidade / Utilidades Internas
 - **Middlewares avançados**: tracing, segurança, contexto para Sentry, locale do usuário, multi-tenant, terminating
@@ -100,14 +100,14 @@ Status: **Work in Progress** – melhorias contínuas, feedback bem-vindo.
 ## Stack Front-end / Dev
 
 ### Core Frontend
-- **React** (v19) + **TypeScript** (v5)
-- **Inertia.js React** (v2) – Frontend Inertia.js
-- **Vite** (v7) + `laravel-vite-plugin` (v2)
-- **Tailwind CSS** (v4)
+- **React 19** + **TypeScript 5**
+- **Inertia.js 2** – Frontend Inertia.js
+- **Vite 7** + Laravel Vite Plugin
+- **Tailwind CSS 4**
 - **Laravel Wayfinder** – Roteamento avançado
 
 ### UI Components & Libraries
-- **Radix UI** (Avatar, DropdownMenu, Slot) – Componentes acessíveis
+- **Shadcn UI** – Sistema de componentes moderno e acessível
 - **Lucide React** – Ícones consistentes
 - **React Icons** – Biblioteca complementar de ícones
 - **Fontsource Roboto** – Tipografia
